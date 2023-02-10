@@ -16,26 +16,25 @@ function calculate() {
   const num1 = prompt(`Enter the first operand`).trim();
   const num2 = prompt(`Enter the second operand`).trim();
 
-  const add = Number(num1) + Number(num2);
-  const sub = num1 - num2;
-  const mult = num1 * num2;
-  const div = num1 / num2;
-
-  if (num1.length > 0 && num2.length > 0) {
+  if (operation.length > 0 && num1.length > 0 && num2.length > 0) {
     switch (operation) {
       case `add`:
+        const add = Number(num1) + Number(num2);
         alert(`${num1} + ${num2} = ${add}`);
         break;
 
       case `sub`:
+        const sub = num1 - num2;
         alert(`${num1} - ${num2} = ${sub}`);
         break;
 
       case `mult`:
+        const mult = num1 * num2;
         alert(`${num1} * ${num2} = ${mult}`);
         break;
 
       case `div`:
+        const div = num1 / num2;
         alert(`${num1} / ${num2} = ${div}`);
         break;
 
