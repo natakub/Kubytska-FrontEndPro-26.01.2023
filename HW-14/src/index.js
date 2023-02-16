@@ -55,7 +55,7 @@ let users = [
   },
 ];
 
-// Дан масив об'єктів. Вивести масив телефонних номерів користувачів, у яких баланс більше 2000 доларів.
+// Дано масив об'єктів. Вивести масив телефонних номерів користувачів, у яких баланс більше 2000 доларів.
 
 let phoneArr = [];
 let balanceArr = [];
@@ -71,14 +71,30 @@ for (i = 0; i < users.length; i++) {
   }
 }
 
-// console.log(balanceArr);
+console.log(balanceArr);
+console.log(phoneArr);
+
+// Не використовуючи цикл for
+
+users.forEach((currentUser) => {
+  let balance = +currentUser.balance.slice(1).replace(`,`, ``);
+
+  balanceArr.push(balance);
+
+  if (balance > 2000) {
+    phoneArr.push(currentUser.phone);
+  }
+});
+
+console.log(balanceArr);
 console.log(phoneArr);
 
 //  І знайти суму всіх балансів користувачів
+
 function roundNumber(num) {
   return Math.round(num * 100) / 100;
 }
 
-let sumOfBalance = balanceArr.reduce((sum, current) => sum + current);
+let sumOfBalance = balanceArr.reduce((sum, current) => sum + current, 0);
 
 console.log(roundNumber(sumOfBalance));

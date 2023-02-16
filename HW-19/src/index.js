@@ -1,38 +1,13 @@
-// Переписати код з використанням конструкції switch…case
+// Написати функцію, яка приймає 1 параметр. з тим, що передали перший раз і т. д. Все це із замиканнями.s
 
-let numOrStr = prompt("input number or string");
-console.log(numOrStr);
-
-// switch (true) {
-//   case numOrStr === null:
-//     console.log("ви скасували");
-//     break;
-
-//   case numOrStr.trim() === "":
-//     console.log("Empty String");
-//     break;
-
-//   case isNaN(+numOrStr):
-//     console.log(" number is Ba_NaN");
-//     break;
-
-//   default:
-//     console.log("OK!");
-// }
-
-switch (numOrStr) {
-  case null:
-    console.log("ви скасували");
-    break;
-
-  case "":
-    console.log("Empty String");
-    break;
-
-  case isNaN(NaN):
-    console.log(" number is Ba_NaN");
-    break;
-
-  default:
-    console.log("OK!");
+function addNumbers() {
+  a = 0;
+  return function (b) {
+    return (a += b);
+  };
 }
+
+const sum = addNumbers();
+console.log(sum(3));
+console.log(sum(5));
+console.log(sum(20));

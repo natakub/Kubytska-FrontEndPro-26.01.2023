@@ -1,38 +1,16 @@
-// Переписати код з використанням конструкції switch…case
+// Реалізуйте функцію generateKey(length, characters), яка повертає рядок випадкових символів із набору characters довжиною length. span>
 
-let numOrStr = prompt("input number or string");
-console.log(numOrStr);
+const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-// switch (true) {
-//   case numOrStr === null:
-//     console.log("ви скасували");
-//     break;
+function generateKey(length, characters) {
+  let result = "";
 
-//   case numOrStr.trim() === "":
-//     console.log("Empty String");
-//     break;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
 
-//   case isNaN(+numOrStr):
-//     console.log(" number is Ba_NaN");
-//     break;
-
-//   default:
-//     console.log("OK!");
-// }
-
-switch (numOrStr) {
-  case null:
-    console.log("ви скасували");
-    break;
-
-  case "":
-    console.log("Empty String");
-    break;
-
-  case isNaN(NaN):
-    console.log(" number is Ba_NaN");
-    break;
-
-  default:
-    console.log("OK!");
+  return result;
 }
+
+const key = generateKey(16, characters);
+console.log(key); // eg599gb60q926j8i

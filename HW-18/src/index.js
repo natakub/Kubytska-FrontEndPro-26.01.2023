@@ -1,38 +1,14 @@
-// Переписати код з використанням конструкції switch…case
+/*
+Реалізувати рекурсивну функцію, яка зводить число в ступінь:
+* Число, яке треба піднести до ступеню, передається як перший аргумент у функції;
+* Ступінь передається як другий аргумент у функцію pow (num, degree).
+ */
 
-let numOrStr = prompt("input number or string");
-console.log(numOrStr);
-
-// switch (true) {
-//   case numOrStr === null:
-//     console.log("ви скасували");
-//     break;
-
-//   case numOrStr.trim() === "":
-//     console.log("Empty String");
-//     break;
-
-//   case isNaN(+numOrStr):
-//     console.log(" number is Ba_NaN");
-//     break;
-
-//   default:
-//     console.log("OK!");
-// }
-
-switch (numOrStr) {
-  case null:
-    console.log("ви скасували");
-    break;
-
-  case "":
-    console.log("Empty String");
-    break;
-
-  case isNaN(NaN):
-    console.log(" number is Ba_NaN");
-    break;
-
-  default:
-    console.log("OK!");
+function pow(num, degree) {
+  return degree === 1 ? num : num * pow(num, degree - 1);
 }
+
+console.log(pow(2, 2));
+console.log(pow(2, 3));
+console.log(pow(2, 4));
+console.log(pow(5, 1));

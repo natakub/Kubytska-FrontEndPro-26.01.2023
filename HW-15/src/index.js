@@ -1,38 +1,14 @@
-// Переписати код з використанням конструкції switch…case
+// Реалізуйте функцію removeElement(array, item), щоб видалити елемент item з масиву array.
 
-let numOrStr = prompt("input number or string");
-console.log(numOrStr);
+const arr = [1, 2, 3, 4, 5, 6, 7];
 
-// switch (true) {
-//   case numOrStr === null:
-//     console.log("ви скасували");
-//     break;
+function removeElement(array, item) {
+  const index = array.indexOf(item);
+  const result = array.splice(index, 1);
 
-//   case numOrStr.trim() === "":
-//     console.log("Empty String");
-//     break;
-
-//   case isNaN(+numOrStr):
-//     console.log(" number is Ba_NaN");
-//     break;
-
-//   default:
-//     console.log("OK!");
-// }
-
-switch (numOrStr) {
-  case null:
-    console.log("ви скасували");
-    break;
-
-  case "":
-    console.log("Empty String");
-    break;
-
-  case isNaN(NaN):
-    console.log(" number is Ba_NaN");
-    break;
-
-  default:
-    console.log("OK!");
+  return result;
 }
+
+removeElement(arr, 5);
+
+console.log(arr);

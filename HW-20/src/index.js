@@ -1,38 +1,44 @@
-// Переписати код з використанням конструкції switch…case
+// Це ladder (сходи) – об'єкт, який дозволяє підніматися вгору та спускатися:
 
-let numOrStr = prompt("input number or string");
-console.log(numOrStr);
+/*
 
-// switch (true) {
-//   case numOrStr === null:
-//     console.log("ви скасували");
-//     break;
+let ladder = {
+  step: 0,
+  up: function () {
+    this.step++;
+  },
+  down: function () {
+    this.step--;
+  },
+  showStep: function () {
+    // показывает текущую ступеньку
+    alert(this.step);
+  },
+};
 
-//   case numOrStr.trim() === "":
-//     console.log("Empty String");
-//     break;
+ladder.up();
+ladder.up();
+ladder.down();
+ladder.showStep(); // 1
 
-//   case isNaN(+numOrStr):
-//     console.log(" number is Ba_NaN");
-//     break;
+*/
 
-//   default:
-//     console.log("OK!");
-// }
+// Змініть код методів up, down і showStep таким Таким чином, щоб їх виклик можна було зробити по ланцюжку.
 
-switch (numOrStr) {
-  case null:
-    console.log("ви скасували");
-    break;
+let ladder = {
+  step: 0,
+  up: function () {
+    this.step++;
+    return this;
+  },
+  down: function () {
+    this.step--;
+    return this;
+  },
+  showStep: function () {
+    alert(this.step);
+    return this;
+  },
+};
 
-  case "":
-    console.log("Empty String");
-    break;
-
-  case isNaN(NaN):
-    console.log(" number is Ba_NaN");
-    break;
-
-  default:
-    console.log("OK!");
-}
+ladder.up().up().down().showStep(); // 1
