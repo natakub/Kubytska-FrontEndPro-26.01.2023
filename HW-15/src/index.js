@@ -6,7 +6,8 @@ function removeElement(array, item) {
   const index = array.indexOf(item);
   const result = array.splice(index, 1);
 
-  return result;
+  // return result;
+  // return - не потрібний
 }
 
 removeElement(arr, 5);
