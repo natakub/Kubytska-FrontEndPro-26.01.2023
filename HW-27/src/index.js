@@ -1,55 +1,19 @@
-class Supermath {
-  check(obj) {
-    const confirmMessage = confirm(
-      `Do you want to do a mathematical operation with ${obj.znak} and numbers ${obj.X} and ${obj.Y}?`
-    );
-    if (confirmMessage === true) {
-      return this.calculate(obj.X, obj.Y, obj.znak);
-    } else {
-      return this.input();
-    }
+const table = document.createElement("table");
+table.classList.add("table");
+
+for (let i = 0; i < 10; i++) {
+  const row = document.createElement("tr");
+
+  for (let j = 0; j < 10; j++) {
+    const cellValue = i * 10 + j + 1;
+
+    const cell = document.createElement("td");
+    cell.textContent = cellValue;
+
+    row.append(cell);
   }
 
-  calculate(x, y, znak) {
-    switch (znak) {
-      case `+`:
-        return x + y;
-
-      case `-`:
-        return x - y;
-
-      case `/`:
-        return x / y;
-
-      case `*`:
-        return x * y;
-
-      case `%`:
-        return x % y;
-
-      default:
-        console.log(`Invalid operator`);
-        return this.input();
-    }
-  }
-
-  input() {
-    const x = +prompt(`Enter x:`);
-    const y = +prompt(`Enter y:`);
-    const znak = prompt(`Enter a mathematical operator (+, -, /, *, or %):`);
-
-    const operators = ["+", "-", "/", "*", "%"];
-
-    if (operators.includes(znak)) {
-      return this.calculate(x, y, znak);
-    } else {
-      console.log(`Invalid operator`);
-    }
-  }
+  table.append(row);
 }
 
-const supermath = new Supermath();
-const obj = { X: 12, Y: 3, znak: "/" };
-
-const result = supermath.check(obj);
-console.log(result);
+document.append(table);
