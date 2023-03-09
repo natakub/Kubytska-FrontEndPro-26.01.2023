@@ -16,4 +16,4 @@ for (let i = 0; i < 10; i++) {
   table.append(row);
 }
 
-document.append(table);
+document.body.append(table);
