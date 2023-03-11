@@ -10,7 +10,7 @@ function displayRandomImage() {
     console.log("Error loading image");
   };
 
-  document.body.appendChild(img);
+  document.body.append(img);
 }
 
 displayRandomImage();
