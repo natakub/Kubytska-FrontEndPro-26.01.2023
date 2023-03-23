@@ -5,9 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .section {
+        text-align: center;
+      }
+
+      img {
+        width: 600px;
+      }
+
+      ul {
+        width: 600px;
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 20px auto;
+        padding-left: 0;
+      }
+
+      .emoji-btn {
+        background-color: transparent;
+        border: none;
+        font-size: 25px;
+        cursor: pointer;
+      }
+
+      .liked-number {
+        margin: 0;
+        font-size: 15px;
+        font-style: italic;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <h1 id="h1">Hello world!</h1>
+    <section class="section">
+      <img src="img/1.jpg" alt="scenery" />
+      <ul>
+        <li>
+          <button class="emoji-btn" type="button">😍</button>
+          <p class="likes-count">0</p>
+        </li>
+        <li>
+          <button class="emoji-btn" type="button">🙄</button>
+          <p class="likes-count">0</p>
+        </li>
+        <li>
+          <button class="emoji-btn" type="button">😲</button>
+          <p class="likes-count">0</p>
+        </li>
+        <li>
+          <button class="emoji-btn" type="button">😵</button>
+          <p class="likes-count">0</p>
+        </li>
+        <li>
+          <button class="emoji-btn" type="button">🥱</button>
+          <p class="likes-count">0</p>
+        </li>
+      </ul>
+    </section>
     <script src="src/index.js"></script>
   </body>
 </html>
