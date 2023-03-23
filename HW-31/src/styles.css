@@ -1,0 +1,46 @@
+.slider {
+  margin: 0 auto 50px;
+  max-width: 600px;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  display: none;
+}
+
+li.active {
+  display: block;
+}
+
+img {
+  width: 600px;
+}
+
+.button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  top: 50%;
+}
+
+.button_prev {
+  display: none;
+  left: -120px;
+  transform: translateY(-50%);
+}
+
+.button_next {
+  right: -120px;
+  transform: translateY(-50%);
+}
