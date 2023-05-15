@@ -1,0 +1,39 @@
+{
+  "name": "hw-39",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp start",
+    "compile:css": "gulp compile:css",
+    "build": "gulp build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:js": "gulp lint:js",
+    "lint:watch": "gulp lint:watch",
+    "server:base": "gulp server:base",
+    "server:dev": "gulp server:dev",
+    "server:prod": "gulp server:prod"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-eslint": "^10.1.0",
+    "delete": "^1.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.7.0",
+    "gulp-livereload": "4.0.2",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.62.1"
+  }
+}
