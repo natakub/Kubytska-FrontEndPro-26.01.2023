@@ -10,15 +10,15 @@ function App() {
     <div className="App">
       <VoteWidget
         smileIcon={
-          <FontAwesomeIcon icon={faFaceSmile} style={{ color: "#ffffff" }} />
+          <FontAwesomeIcon icon={faFaceSmile} style={{ color: "#61dafb" }} />
         }
         smilePooIcon={
-          <FontAwesomeIcon icon={faPoo} style={{ color: "#ffffff" }} />
+          <FontAwesomeIcon icon={faPoo} style={{ color: "#61dafb" }} />
         }
         heartsIcon={
           <FontAwesomeIcon
             icon={faFaceGrinHearts}
-            style={{ color: "#ffffff" }}
+            style={{ color: "#61dafb" }}
           />
         }
       />

@@ -19,7 +19,7 @@ class VoteWidget extends React.Component {
     super(props);
 
     this.state = {
-      data: [
+      icons: [
         {
           type: props.smileIcon,
           count: 0,
@@ -39,21 +39,21 @@ class VoteWidget extends React.Component {
   }
 
   handleClick = (type) => {
-    const updatedData = this.state.data.map((item) =>
-      item.type === type ? { ...item, count: item.count + 1 } : item
+    const updatedIcons = this.state.icons.map((icon) =>
+      icon.type === type ? { ...icon, count: icon.count + 1 } : icon
     );
 
-    this.setState({ data: updatedData });
+    this.setState({ icons: updatedIcons });
   };
 
   handleResultClick = () => {
-    const { data } = this.state;
+    const { icons } = this.state;
 
-    if (data.some((item) => item.count > 0)) {
+    if (icons.some((icon) => icon.count > 0)) {
       const biggestNumber = Math.max(
-        ...this.state.data.map((item) => item.count)
+        ...this.state.icons.map((icon) => icon.count)
       );
-      const result = data.filter((item) => item.count === biggestNumber);
+      const result = icons.filter((icon) => icon.count === biggestNumber);
 
       this.setState({
         showResult: true,
@@ -65,30 +65,31 @@ class VoteWidget extends React.Component {
   };
 
   handleResetClick = () => {
-    const resetData = this.state.data.map((item) => ({
-      ...item,
+    const resetIcons = this.state.icons.map((icon) => ({
+      ...icon,
       count: 0,
     }));
 
     this.setState({
-      data: resetData,
+      icons: resetIcons,
       showResult: false,
       biggestNumber: null,
     });
   };
 
   render() {
-    const { data, showResult, biggestNumber } = this.state;
+    const { icons, showResult, biggestNumber } = this.state;
 
     return (
       <div className="Widget">
-        <h1>Click on any icon to leave a reaction</h1>
-        <ul>
-          {data.map((item) => (
+        <h1 className="Widget-title">Click on any icon to leave a reaction</h1>
+        <ul className="Widget-list">
+          {icons.map((icon) => (
             <ListItem
-              type={item.type}
-              count={item.count}
-              onIconClick={() => this.handleClick(item.type)}
+              key={icon.type}
+              iconType={icon.type}
+              iconCount={icon.count}
+              onIconClick={() => this.handleClick(icon.type)}
             />
           ))}
         </ul>
@@ -104,21 +105,38 @@ class VoteWidget extends React.Component {
 
 function ListItem(props) {
   return (
-    <li>
-      <button onClick={props.onIconClick}>{props.type}</button>
-      <span>{props.count}</span>
+    <li className="Widget-list-item">
+      <button className="Widget-icon-btn" onClick={props.onIconClick}>
+        {props.iconType}
+      </button>
+      <span>{props.iconCount}</span>
     </li>
   );
 }
 
+ListItem.propTypes = {
+  onIconClick: PropTypes.func,
+  iconType: PropTypes.element,
+  iconCount: PropTypes.number,
+};
+
 function GetResultButtons(props) {
   return (
     <div>
-      <button onClick={props.onResetClick}>Reset Results</button>
-      <button onClick={props.onResultClick}>Show Results</button>
+      <button className="Widget-result-btns" onClick={props.onResetClick}>
+        Reset Results
+      </button>
+      <button className="Widget-result-btns" onClick={props.onResultClick}>
+        Show Results
+      </button>
     </div>
   );
 }
+
+GetResultButtons.propTypes = {
+  onResetClick: PropTypes.func,
+  onResultClick: PropTypes.func,
+};
 
 function ResultItem(props) {
   return (
@@ -131,12 +149,25 @@ function ResultItem(props) {
   );
 }
 
+ResultItem.propTypes = {
+  showResult: PropTypes.bool,
+  biggestNumber: PropTypes.number,
+};
+
 function IsIconArray(props) {
   return Array.isArray(props.biggestNumber) ? (
-    props.biggestNumber.map((item) => <span key={item.type}>{item.type}</span>)
+    props.biggestNumber.map((icon) => (
+      <span className="result-icon" key={icon.type}>
+        {icon.type}
+      </span>
+    ))
   ) : (
     <span>{props.biggestNumber.type}</span>
   );
 }
+
+IsIconArray.propTypes = {
+  biggestNumber: PropTypes.number,
+};
 
 export default VoteWidget;
