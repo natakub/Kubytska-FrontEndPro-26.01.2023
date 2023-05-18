@@ -84,9 +84,9 @@ class VoteWidget extends React.Component {
       <div className="Widget">
         <h1 className="Widget-title">Click on any icon to leave a reaction</h1>
         <ul className="Widget-list">
-          {icons.map((icon) => (
+          {icons.map((icon, index) => (
             <ListItem
-              key={icon.type}
+              key={index}
               iconType={icon.type}
               iconCount={icon.count}
               onIconClick={() => this.handleClick(icon.type)}
@@ -151,7 +151,7 @@ function ResultItem(props) {
 
 ResultItem.propTypes = {
   showResult: PropTypes.bool,
-  biggestNumber: PropTypes.number,
+  biggestNumber: PropTypes.array,
 };
 
 function IsIconArray(props) {
@@ -167,7 +167,7 @@ function IsIconArray(props) {
 }
 
 IsIconArray.propTypes = {
-  biggestNumber: PropTypes.number,
+  biggestNumber: PropTypes.array,
 };
 
 export default VoteWidget;
