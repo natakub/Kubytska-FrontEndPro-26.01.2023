@@ -6,15 +6,23 @@
 
 .FilterButtons button {
   background-color: #ffffff;
-  border: solid #5a5a5a 1px;
+  border: none;
   color: #5a5a5a;
   cursor: pointer;
   font-size: 15px;
+  margin: 0 1px;
   padding: 8px 15px;
 }
 
 .FilterButtons button:hover {
-  background-color: #d3d3d3;
-  color: #5a5a5a;
+  background-color: #d3d3d38a;
+  border: solid #ffffff 1px;
+  color: #ffffff;
   transition: all 100ms ease-in-out;
+}
+
+.active:focus {
+  background-color: #d3d3d38a;
+  border: solid #ffffff 1px;
+  color: #ffffff;
 }

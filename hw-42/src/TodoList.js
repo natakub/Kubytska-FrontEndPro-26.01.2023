@@ -62,7 +62,7 @@ function TodoList(props) {
     <div className="TodoList">
       <TodoForm createTask={createTask} />
       <ul>{tasksList}</ul>
-      <FilterButtons handleFilterChange={handleFilterChange} />
+      <FilterButtons handleFilterChange={handleFilterChange} status={filter} />
       <RemoveAllButton removeAllFunc={handleRemoveAll} />
     </div>
   );
