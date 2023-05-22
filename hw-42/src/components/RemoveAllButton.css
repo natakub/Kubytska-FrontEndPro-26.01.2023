@@ -1,0 +1,16 @@
+.RemoveAllButton {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  color: #df1b1b;
+  cursor: pointer;
+  display: block;
+  font-size: 17px;
+  margin: 30px auto 15px;
+  padding: 8px 15px;
+}
+
+.RemoveAllButton:hover {
+  background-color: #d3d3d3;
+  transition: all 100ms ease-in-out;
+}

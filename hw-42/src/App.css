@@ -1,0 +1,21 @@
+body {
+  background-color: #282c34;
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+  width: 500px;
+}
+.App {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5%;
+  color: #ffffff;
+  padding: 20px;
+  margin: 20px;
+}
+
+.App-title {
+  font-size: calc(30px + 2vmin);
+  margin: 0;
+  text-align: center;
+  padding-bottom: 20px;
+}

@@ -1,0 +1,20 @@
+.FilterButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 25px;
+}
+
+.FilterButtons button {
+  background-color: #ffffff;
+  border: solid #5a5a5a 1px;
+  color: #5a5a5a;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 8px 15px;
+}
+
+.FilterButtons button:hover {
+  background-color: #d3d3d3;
+  color: #5a5a5a;
+  transition: all 100ms ease-in-out;
+}
