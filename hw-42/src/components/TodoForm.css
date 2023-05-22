@@ -1,0 +1,43 @@
+.TodoForm {
+  padding: 0 25px;
+}
+
+.TodoForm form {
+  display: flex;
+}
+
+.TodoForm input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-bottom: solid #ffffff 2px;
+  font-size: 17px;
+  line-height: 34px;
+  padding-left: 10px;
+  outline: none;
+  width: 250px;
+}
+
+.TodoForm input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.TodoForm input:focus {
+  border: none;
+  border-bottom: solid #ffffff;
+  color: #ffffff;
+}
+
+.TodoForm button {
+  background-color: #ffffff;
+  border: none;
+  color: #5a5a5a;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 8px 15px;
+}
+
+.TodoForm button:hover {
+  background-color: #d3d3d3;
+  color: #5a5a5a;
+  transition: all 100ms ease-in-out;
+}
