@@ -1,6 +1,5 @@
 import React from "react";
 import TodoList from "./TodoList";
-// import ToDo from "./components/ToDo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
