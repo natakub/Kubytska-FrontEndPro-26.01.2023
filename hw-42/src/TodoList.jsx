@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import TodoForm from "./TodoForm";
-import Task from "./Task";
-import FilterButtons from "./FilterButtons";
-import RemoveAllButton from "./RemoveAllButton";
+import TodoForm from "./components/TodoForm";
+import Task from "./components/Task";
+import FilterButtons from "./components/FilterButtons";
+import RemoveAllButton from "./components/RemoveAllButton";
 import "./TodoList.css";
 
 function TodoList(props) {
