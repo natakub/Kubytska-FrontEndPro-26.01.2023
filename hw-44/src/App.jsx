@@ -9,22 +9,33 @@ const App = () => {
     phoneNumber: "",
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
     setTimeout(() => {
       alert(JSON.stringify(values, null, 2));
       setSubmitting(false);
+      resetForm();
     }, 400);
   };
-
-  const isRequired = (message) => (value) => !!value ? undefined : message;
 
   const validate = (values) => {
     const errors = {};
 
+    if (!values.username) {
+      errors.username = "*this field is required";
+    } else if (values.username.length > 25) {
+      errors.username = "*must be 25 characters or less";
+    }
+
     if (!values.email) {
-      errors.email = " *this field is required";
+      errors.email = "*this field is required";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
+      errors.email = "*invalid email address";
+    }
+
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "*this field is required";
+    } else if (!/^\+38\(\d{3}\)-\d{3}-\d{2}-\d{2}$/i.test(values.phoneNumber)) {
+      errors.phoneNumber = '*must be in this format "+38(xxx)-xxx-xx-xx"';
     }
 
     return errors;
@@ -38,57 +49,74 @@ const App = () => {
         validate={validate}
         onSubmit={handleSubmit}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
-          <Form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <div>
-              <Field
-                name="username"
-                type="text"
-                validate={isRequired(" *this field is required")}
-                placeholder="Enter a name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <ErrorMessage name="username" />
-            </div>
-            <label htmlFor="email">Email:</label>
-            <div>
-              <Field
-                name="email"
-                type="email"
-                placeholder="Enter an email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              {errors.email && touched.email && errors.email}
-            </div>
-            <label htmlFor="phoneNumber">Phone number:</label>
-            <div>
-              <Field
-                name="phoneNumber"
-                type="tel"
-                validate={isRequired(" *this field is required")}
-                placeholder="Enter a phone number"
-              />
-              <ErrorMessage name="phoneNumber" />
-            </div>
-            {/* {errors.password && touched.password && errors.password} */}
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
+        {(formProps) => {
+          const {
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          } = formProps;
+
+          return (
+            <Form onSubmit={handleSubmit}>
+              <label htmlFor="username">Username:</label>
+              <div>
+                <div>
+                  <ErrorMessage name="username" />
+                </div>
+                <Field
+                  name="username"
+                  type="text"
+                  validate={
+                    errors.username && touched.username && errors.username
+                  }
+                  placeholder="Enter a name"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <label htmlFor="email">Email:</label>
+              <div>
+                <div>
+                  <ErrorMessage name="email" />
+                </div>
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="Enter an email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  validate={errors.email && touched.email && errors.email}
+                />
+              </div>
+              <label htmlFor="phoneNumber">Phone number:</label>
+              <div>
+                <div>
+                  <ErrorMessage name="phoneNumber" />
+                </div>
+                <Field
+                  name="phoneNumber"
+                  type="tel"
+                  validate={
+                    errors.phoneNumber &&
+                    touched.phoneNumber &&
+                    errors.phoneNumber
+                  }
+                  placeholder="Enter a phone number"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
