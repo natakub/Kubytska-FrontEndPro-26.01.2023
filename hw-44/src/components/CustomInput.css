@@ -1,0 +1,29 @@
+.CustomInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px 5px;
+  width: calc(100% - 15px);
+}
+
+.CustomInput:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+
+  border: none;
+  border-bottom: 2px solid #61dafb;
+  outline: none;
+}
+
+.CustomInput::placeholder {
+  color: #fff;
+  font-size: 15px;
+}
+
+.CustomInput-error {
+  color: rgba(255, 0, 0, 0.5);
+  font-style: italic;
+  font-size: 15px;
+  padding-bottom: 15px;
+}
