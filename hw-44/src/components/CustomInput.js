@@ -7,7 +7,7 @@ const CustomInput = (props) => {
 
   return (
     <div>
-      <div className="CustomInput-block">
+      <div>
         <input
           className="CustomInput"
           type={field.type}
