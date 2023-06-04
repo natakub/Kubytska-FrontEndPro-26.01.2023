@@ -1,0 +1,28 @@
+.filter-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 25px;
+}
+
+.filter-buttons button {
+  background-color: #ffffff;
+  border: none;
+  color: #5a5a5a;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 0 1px;
+  padding: 8px 15px;
+}
+
+.filter-buttons button:hover {
+  background-color: #d3d3d38a;
+  border: solid #ffffff 1px;
+  color: #ffffff;
+  transition: all 100ms ease-in-out;
+}
+
+.active:focus {
+  background-color: #d3d3d38a;
+  border: solid #ffffff 1px;
+  color: #ffffff;
+}
