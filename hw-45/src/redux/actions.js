@@ -6,12 +6,10 @@ import {
   REMOVE_ALL,
 } from "./constants";
 
-let nextTodoId = 0;
+// let nextTodoId = 0;
 export const addTodo = (text) => ({
   type: ADD_TODO,
-  id: nextTodoId++,
-  text,
-  completed: false,
+  payload: text,
 });
 
 export const toggleTodo = (id) => ({

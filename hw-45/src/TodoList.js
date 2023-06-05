@@ -31,6 +31,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function TodoList(props) {
+  debugger;
+
   const createTask = (text) => {
     props.onAddTodo(text);
   };
@@ -47,15 +49,17 @@ function TodoList(props) {
     props.onSetVisibilityFilter(selectedFilter);
   };
 
-  const filteredTasks = props.todos.filter((todo) => {
-    if (props.visibilityFilter === "active") {
-      return !todo.completed;
-    } else if (props.visibilityFilter === "completed") {
-      return todo.completed;
-    } else {
-      return true;
-    }
-  });
+  const filteredTasks = Array.isArray(props.todos)
+    ? props.todos.filter((todo) => {
+        if (props.visibilityFilter === "active") {
+          return !todo.completed;
+        } else if (props.visibilityFilter === "completed") {
+          return todo.completed;
+        } else {
+          return true;
+        }
+      })
+    : [];
 
   const handleRemoveAll = () => {
     props.onRemoveAll();

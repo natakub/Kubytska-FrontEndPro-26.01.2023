@@ -23,11 +23,11 @@ function Task({ task, handleDeleteTask, handleToggleComplete, deleteIcon }) {
           name="task"
           type="checkbox"
           checked={task.completed}
-          onChange={toggleCompleted}
+          onChange={() => toggleCompleted()}
         />
-        <span name="task">{task.text}</span>
+        <span>{task.text}</span>
       </label>
-      <button onClick={handleDelete}>{deleteIcon}</button>
+      <button onClick={() => handleDelete()}>{deleteIcon}</button>
     </li>
   );
 }
