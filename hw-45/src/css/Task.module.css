@@ -1,0 +1,46 @@
+.task {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+
+  padding: 7px 0;
+}
+
+.task label {
+  cursor: pointer;
+}
+
+.task .todo-task {
+  position: relative;
+  transition: opacity 0.4s linear;
+}
+
+.task .todo-task.completed {
+  opacity: 0.6;
+}
+
+.task .todo-task.completed:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -0.5rem;
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: #fff;
+  animation: strikeitem 0.5s ease-out 0s forwards;
+}
+
+@keyframes strikeitem {
+  to {
+    width: calc(100% + 1rem);
+  }
+}
+
+.task button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
