@@ -7,6 +7,7 @@ import {
   removeAll,
   setVisibilityFilter,
 } from "./redux/actions";
+
 import TodoForm from "./components/TodoForm";
 import Task from "./components/Task";
 import FilterButtons from "./components/FilterButtons";

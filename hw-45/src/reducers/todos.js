@@ -5,9 +5,9 @@ import {
   REMOVE_ALL,
 } from "../redux/constants";
 
-const initialState = [];
+const INITIAL_STATE = [];
 
-const todos = (state = initialState, action) => {
+const todos = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_TODO:
       return [...state, action.payload];
