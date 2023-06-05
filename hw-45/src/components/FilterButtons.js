@@ -6,7 +6,7 @@ function FilterButtons(props) {
   return (
     <div className={styles["filter-buttons"]}>
       <button
-        className={clsx({ active: props.status === "all" })}
+        className={clsx({ [styles.active]: props.status === "all" })}
         onClick={() => {
           props.handleFilterChange("all");
         }}
@@ -14,13 +14,13 @@ function FilterButtons(props) {
         All
       </button>
       <button
-        className={clsx({ active: props.status === "active" })}
+        className={clsx({ [styles.active]: props.status === "active" })}
         onClick={() => props.handleFilterChange("active")}
       >
         Active
       </button>
       <button
-        className={clsx({ active: props.status === "completed" })}
+        className={clsx({ [styles.active]: props.status === "completed" })}
         onClick={() => props.handleFilterChange("completed")}
       >
         Completed
