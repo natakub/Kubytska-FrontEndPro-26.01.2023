@@ -1,12 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
 import "./index.css";
 import App from "./App";
-import rootReducer from "./reducers/rootReducer";
+import rootReducer from "./redux/reducers/index";
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    thunk.withExtraArgument({
+      apiEndpoint: "https://647e059faf984710854ad100.mockapi.io",
+    }),
+    logger
+  )
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

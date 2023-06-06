@@ -1,4 +1,4 @@
-import { VisibilityFilters, SET_VISIBILITY_FILTER } from "../redux/constants";
+import { VisibilityFilters, SET_VISIBILITY_FILTER } from "../constants";
 
 const visibilityFilter = (state = VisibilityFilters.SHOW_ACTIVE, action) => {
   switch (action.type) {

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import todos from "../reducers/todos";
-import visibilityFilter from "../reducers/visibilityFilter";
+import tasks from "./tasks";
+import visibilityFilter from "./visibilityFilter";
 
 const rootReducer = combineReducers({
-  todos,
+  tasks,
   visibilityFilter,
 });
 

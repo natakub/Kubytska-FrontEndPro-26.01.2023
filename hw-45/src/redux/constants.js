@@ -1,11 +1,13 @@
-export const ADD_TODO = "todo / ADD_TODO";
-export const TOGGLE_TODO = "todo / TOGGLE_TODO";
-export const REMOVE_TODO = "todo / REMOVE_TODO";
-export const REMOVE_ALL = "REMOVE ALL";
+export const ADD_TASK = "task/ADD_TASK";
+export const TOGGLE_TASK = "task/TOGGLE_TASK";
+export const REMOVE_TASK = "task/REMOVE_TASK";
+export const REMOVE_ALL = "tasks/REMOVE ALL";
 export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
+export const FETCH_TASKS = "FETCH_TASKS";
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 export const VisibilityFilters = {
-  SHOW_ALL: "todos/SHOW_ALL",
-  SHOW_COMPLETED: "todos/SHOW_COMPLETED",
-  SHOW_ACTIVE: "todos/SHOW_ACTIVE",
+  SHOW_ALL: "tasks/SHOW_ALL",
+  SHOW_COMPLETED: "tasks/SHOW_COMPLETED",
+  SHOW_ACTIVE: "tasks/SHOW_ACTIVE",
 };

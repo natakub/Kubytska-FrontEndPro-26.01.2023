@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import TodoList from "./TodoList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+import { fetchTasks } from "./redux/redux-thunk/actions";
 
-function App() {
+const mapStateToProps = (state) => {
+  return {
+    currentPage: state.tasks.meta.currentPage,
+  };
+};
+
+function App(props) {
+  useEffect(() => {
+    props.fetchTasks();
+  }, [props.currentPage]);
+
   return (
     <div className="app">
       <h1 className="app-title">To-Do List</h1>
@@ -17,4 +29,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(mapStateToProps, { fetchTasks })(App);

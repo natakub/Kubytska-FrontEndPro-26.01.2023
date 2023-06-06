@@ -1,61 +1,62 @@
 import React from "react";
 import { connect } from "react-redux";
+import { setVisibilityFilter } from "./redux/actions";
 import {
-  addTodo,
-  toggleTodo,
-  removeTodo,
-  removeAll,
-  setVisibilityFilter,
-} from "./redux/actions";
+  addTaskItem,
+  toggleTaskItem,
+  removeTaskItem,
+  deleteTasks,
+} from "./redux/redux-thunk/actions";
 
 import TodoForm from "./components/TodoForm";
 import Task from "./components/Task";
 import FilterButtons from "./components/FilterButtons";
 import RemoveAllButton from "./components/RemoveAllButton";
+import Pagination from "./components/Pagination";
 import styles from "./css/TodoList.module.css";
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos,
+    tasks: state.tasks.data,
+    status: state.tasks.status,
     visibilityFilter: state.visibilityFilter,
+    currentPage: state.tasks.meta.currentPage,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddTodo: (text) => dispatch(addTodo(text)),
-    onToggleTodo: (id) => dispatch(toggleTodo(id)),
-    onRemoveTodo: (id) => dispatch(removeTodo(id)),
-    onRemoveAll: () => dispatch(removeAll()),
-    onSetVisibilityFilter: (filter) => dispatch(setVisibilityFilter(filter)),
+    addTaskItem: (text) => dispatch(addTaskItem(text)),
+    toggleTaskItem: (id) => dispatch(toggleTaskItem(id)),
+    removeTaskItem: (id) => dispatch(removeTaskItem(id)),
+    deleteTasks: () => dispatch(deleteTasks()),
+    setVisibilityFilter: (filter) => dispatch(setVisibilityFilter(filter)),
   };
 };
 
 function TodoList(props) {
-  debugger;
-
   const createTask = (text) => {
-    props.onAddTodo(text);
+    props.addTaskItem(text);
   };
 
   const handleToggleComplete = (id) => {
-    props.onToggleTodo(id);
+    props.toggleTaskItem(id);
   };
 
   const handleDeleteTask = (id) => {
-    props.onRemoveTodo(id);
+    props.removeTaskItem(id);
   };
 
   const handleFilterChange = (selectedFilter) => {
-    props.onSetVisibilityFilter(selectedFilter);
+    props.setVisibilityFilter(selectedFilter);
   };
 
-  const filteredTasks = Array.isArray(props.todos)
-    ? props.todos.filter((todo) => {
+  const filteredTasks = Array.isArray(props.tasks)
+    ? props.tasks.filter((task) => {
         if (props.visibilityFilter === "active") {
-          return !todo.completed;
+          return !task.completed;
         } else if (props.visibilityFilter === "completed") {
-          return todo.completed;
+          return task.completed;
         } else {
           return true;
         }
@@ -63,7 +64,7 @@ function TodoList(props) {
     : [];
 
   const handleRemoveAll = () => {
-    props.onRemoveAll();
+    props.deleteTasks();
   };
 
   const tasksList = filteredTasks.map((task) => (
@@ -76,10 +77,22 @@ function TodoList(props) {
     />
   ));
 
+  const listStatus = () => {
+    switch (props.status) {
+      case "request":
+        return <div>Loading...</div>;
+      case "success":
+        return tasksList;
+      default:
+        return <div>Something went wrong</div>;
+    }
+  };
+
   return (
     <div className={styles["todo-list"]}>
       <TodoForm createTask={createTask} />
-      <ul>{tasksList}</ul>
+      <ul>{listStatus()}</ul>
+      <Pagination />
       <FilterButtons
         handleFilterChange={handleFilterChange}
         status={props.visibilityFilter}

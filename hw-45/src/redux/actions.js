@@ -1,25 +1,24 @@
 import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  REMOVE_TODO,
+  ADD_TASK,
+  TOGGLE_TASK,
+  REMOVE_TASK,
   SET_VISIBILITY_FILTER,
   REMOVE_ALL,
 } from "./constants";
 
-// let nextTodoId = 0;
-export const addTodo = (text) => ({
-  type: ADD_TODO,
+export const addTask = (text) => ({
+  type: ADD_TASK,
   payload: text,
 });
 
-export const toggleTodo = (id) => ({
-  type: TOGGLE_TODO,
-  id,
+export const toggleTask = (id) => ({
+  type: TOGGLE_TASK,
+  payload: id,
 });
 
-export const removeTodo = (id) => ({
-  type: REMOVE_TODO,
-  id,
+export const removeTask = (id) => ({
+  type: REMOVE_TASK,
+  payload: id,
 });
 
 export const removeAll = () => ({
