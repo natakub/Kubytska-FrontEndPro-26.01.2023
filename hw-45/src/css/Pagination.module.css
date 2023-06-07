@@ -1,0 +1,22 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.page,
+.current-page {
+  border: 1px solid white;
+  border-radius: 100%;
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 5px 10px;
+  text-align: center;
+  width: 10px;
+}
+
+.current-page {
+  background-color: #61dafb;
+  border: 2px solid white;
+}
