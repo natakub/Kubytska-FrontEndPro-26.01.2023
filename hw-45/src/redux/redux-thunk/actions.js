@@ -1,17 +1,6 @@
 import { addTask, toggleTask, removeTask, removeAll } from "../actions";
 import { FETCH_TASKS, SET_CURRENT_PAGE } from "../constants";
 
-export const setCurrentPage = (page) => {
-  return async (dispatch) => {
-    dispatch({
-      type: SET_CURRENT_PAGE,
-      payload: page,
-    });
-
-    dispatch(fetchTasks());
-  };
-};
-
 const fetchTaskRequest = () => ({
   type: FETCH_TASKS,
   payload: {
@@ -25,9 +14,9 @@ const fetchTaskSuccess = (data) => ({
   payload: {
     data: data,
     meta: {
-      limit: data.limit,
-      currentPage: data.currentPage,
-      total: data.total,
+      limit: data.limit || 5,
+      currentPage: data.currentPage || 1,
+      total: data.length,
     },
   },
   status: "success",
@@ -42,15 +31,19 @@ const fetchTaskFailure = () => ({
 });
 
 export const fetchTasks = () => {
-  return async (dispatch, _, options) => {
+  return async (dispatch, getState, options) => {
+    const { currentPage } = getState().tasks.meta;
+
     dispatch(fetchTaskRequest());
 
     try {
-      const response = await fetch(`${options.apiEndpoint}/api/v1/tasks`);
+      const response = await fetch(
+        `${options.apiEndpoint}/api/v1/tasks?limit=5&page=${currentPage}`
+      );
       const data = await response.json();
       dispatch(fetchTaskSuccess(data));
     } catch (error) {
-      dispatch(fetchTaskFailure());
+      dispatch(fetchTaskFailure(error));
     }
   };
 };
@@ -117,5 +110,16 @@ export const deleteTasks = () => {
     } catch (error) {
       console.log("Error while deleting tasks", error);
     }
+  };
+};
+
+export const setCurrentPage = (currentPage) => {
+  return async (dispatch) => {
+    dispatch({
+      type: SET_CURRENT_PAGE,
+      payload: currentPage,
+    });
+
+    dispatch(fetchTasks(currentPage));
   };
 };

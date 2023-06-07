@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 import { fetchTasks } from "./redux/redux-thunk/actions";
+import Pagination from "./components/Pagination";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,9 +14,11 @@ const mapStateToProps = (state) => {
 };
 
 function App(props) {
+  const { fetchTasks, currentPage } = props;
+
   useEffect(() => {
-    props.fetchTasks();
-  }, [props.currentPage]);
+    fetchTasks();
+  }, [currentPage]);
 
   return (
     <div className="app">
@@ -25,6 +28,7 @@ function App(props) {
           <FontAwesomeIcon icon={faTrashCan} style={{ color: "#61dafb" }} />
         }
       />
+      <Pagination />
     </div>
   );
 }

@@ -12,7 +12,6 @@ import TodoForm from "./components/TodoForm";
 import Task from "./components/Task";
 import FilterButtons from "./components/FilterButtons";
 import RemoveAllButton from "./components/RemoveAllButton";
-import Pagination from "./components/Pagination";
 import styles from "./css/TodoList.module.css";
 
 const mapStateToProps = (state) => {
@@ -92,7 +91,6 @@ function TodoList(props) {
     <div className={styles["todo-list"]}>
       <TodoForm createTask={createTask} />
       <ul>{listStatus()}</ul>
-      <Pagination />
       <FilterButtons
         handleFilterChange={handleFilterChange}
         status={props.visibilityFilter}
