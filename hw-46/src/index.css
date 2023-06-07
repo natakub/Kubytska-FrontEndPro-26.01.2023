@@ -12,3 +12,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.navigator {
+  background-color: transparent;
+  color: #31d2f2;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.navigator:hover {
+  color: #31d2f2;
+  text-decoration: underline;
+}
+
+.navigator.active {
+  background-color: #31d2f2;
+  border-radius: 5px;
+  color: #052455;
+  font-size: 20px;
+  padding: 5px 10px;
+  text-decoration: none;
+}

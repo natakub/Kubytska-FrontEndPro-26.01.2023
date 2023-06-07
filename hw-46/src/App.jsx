@@ -2,7 +2,6 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import PageUsers from "./pages/PageUsers";
 import PageAlbums from "./pages/PageAlbums";
-import "./App.css";
 import PagePhotos from "./pages/PagePhotos";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
