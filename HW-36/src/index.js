@@ -343,7 +343,7 @@ fetch("./products.json")
     let listOfOrders = null;
     const ordersList = localStorage.getItem("listOfOrders");
     if (ordersList) {
-      listOfOrders = JSON.parse(listOfOrders);
+      listOfOrders = JSON.parse(ordersList);
     } else {
       listOfOrders = [];
     }
