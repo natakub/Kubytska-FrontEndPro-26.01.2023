@@ -149,7 +149,7 @@ fetch("./products.json")
         document.querySelector("#purchaseConfirmation").style.display = "none";
 
         renderForm(productId);
-        handleSubmitOrder();
+        renderPurchaseConfirmation();
       }
     }
 
@@ -282,6 +282,8 @@ fetch("./products.json")
     }
 
     function handlePriceChanging(event) {
+      event.preventDefault();
+
       const quantityProducts = document.querySelector("#productsQuantity");
       const priceElement = document.querySelector("#productPrice");
       const selectedCategory = categoriesContainer.querySelector(".active");
