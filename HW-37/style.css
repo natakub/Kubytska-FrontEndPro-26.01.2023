@@ -1,7 +1,4 @@
-.pink {
-  background-color: #f76b8a;
-}
-
-.image {
-  width: 300px;
+.error {
+  color: red;
+  font-weight: bold;
 }

@@ -1,153 +1,89 @@
-fetch("./products.json")
-  .then((response) => response.json())
-  .then((data) => {
-    const productsById = data.products.reduce((indexedById, product) => {
-      indexedById[product.id] = product;
-      return indexedById;
-    }, {});
-    const productsByCategory = data.products.reduce(
-      (indexedByCategory, product) => {
-        if (!Array.isArray(indexedByCategory[product.category])) {
-          indexedByCategory[product.category] = [];
-        }
-        indexedByCategory[product.category].push(product);
-        return indexedByCategory;
-      },
-      {}
-    );
-    const categoriesList = Object.keys(productsByCategory);
+const API_ENDPOINT = "https://jsonplaceholder.typicode.com";
 
-    const categoriesContainer = document.querySelector("#categories");
-    const productsContainer = document.querySelector("#products");
-    const productItemContainer = document.querySelector("#product-item");
+function apiCall(url) {
+  return fetch(url).then((res) => res.json());
+}
 
-    categoriesContainer.addEventListener("click", handleCategoryClick);
-    productsContainer.addEventListener("click", handleProductClick);
-    productItemContainer.addEventListener("click", handleBuyProductClick);
+function getPostById(postId) {
+  return apiCall(`${API_ENDPOINT}/posts/${postId}`);
+}
 
-    renderCategories();
-    renderProducts();
-    renderProductItem();
+function getCommentsByPostId(postId) {
+  return apiCall(`${API_ENDPOINT}/posts/${postId}/comments`);
+}
 
-    function renderCategories() {
-      categoriesContainer.innerHTML = "";
+const getPostInput = document.querySelector("#getPostInput");
+const searchBtn = document.querySelector("#search-btn");
+const postTitle = document.querySelector(".post-title");
+const postText = document.querySelector(".post-text");
+const commentsBtn = document.querySelector("#commentsBtn");
+const commentsList = document.querySelector("#commentsList");
 
-      categoriesList.forEach((category) => {
-        const link = document.createElement("button");
+searchBtn.addEventListener("click", handlePost);
+commentsBtn.addEventListener("click", handleComments);
 
-        link.setAttribute("id", category);
-        link.setAttribute("class", "btn btn-outline-info py-3 my-2");
-        link.textContent = category;
+function renderPost(post) {
+  postTitle.textContent = post.title;
+  postText.textContent = post.body;
 
-        categoriesContainer.appendChild(link);
-      });
-    }
+  document.querySelector("#postContainer").style.display = "block";
+  document.querySelector("#commentsContainer").style.display = "none";
+  document.querySelector("#errorContainer").style.display = "none";
+}
 
-    function renderProducts() {
-      const selectedCategory = categoriesContainer.querySelector(".active");
-      const selectedProduct = productsContainer.querySelector(".active");
-      productsContainer.innerHTML = "";
+function renderComments(comments) {
+  commentsList.innerHTML = "";
 
-      if (selectedCategory && productsByCategory[selectedCategory.id]) {
-        productsByCategory[selectedCategory.id].forEach((product) => {
-          const productCard = document.createElement("div");
-          productCard.setAttribute(
-            "class",
-            "card col-6 m-2 bg-secondary text-light"
-          );
-          productCard.style.width = "47%";
+  comments.forEach((comment) => {
+    const commentItem = document.createElement("li");
+    commentItem.classList.add("list-group-item");
 
-          productCard.innerHTML = `
-            <div class="card-body">
-              <h5 class="card-title">${product.title}</h5>
-              <p class="card-text">${product.price} UAH</p>
-              <button id="${product.id}" class="btn btn-outline-info">See more</button>
-            </div>
-          `;
+    commentItem.innerHTML = `
+      <h3>${comment.name}</h3>
+      <p>${comment.email}</p>
+      <p>${comment.body}</p>
+    `;
 
-          if (product.id === selectedProduct?.id) {
-            productCard.classList.add("active");
-          }
+    commentsList.appendChild(commentItem);
+  });
 
-          productsContainer.appendChild(productCard);
-        });
-      }
-    }
+  document.querySelector("#postContainer").style.display = "none";
+  document.querySelector("#commentsContainer").style.display = "block";
+  document.querySelector("#errorContainer").style.display = "none";
+}
 
-    function renderProductItem() {
-      const selectedProduct = productsContainer.querySelector(".active");
-      if (selectedProduct && productsById[selectedProduct.id]) {
-        const product = productsById[selectedProduct.id];
+function showError(err) {
+  const errorMessage = document.querySelector("#error-message");
+  errorMessage.textContent = `Error while getting post: ${err}
+    Enter a number in the range between 1 and 100`;
 
-        productItemContainer.innerHTML = `
-          <div class="card bg-secondary text-light" style="width: 100%">
-            <img src="${product.thumbnail}" class="card-img-top" alt="${product.title}">
-            <div class="card-body">
-              <h5 class="card-title">${product.title}</h5>
-              <p class="card-text"></p>
-              <p class="card-text">${product.description}</p>
-            </div>
-            <ul class="list-group  text-light">
-              <li class="list-group-item">${product.brand}</li>
-              <li class="list-group-item">${product.rating}⭐</li>
-              <li class="list-group-item"><strong>${product.price} UAH</strong></li>
-              <li class="list-group-item">Have a <strong>${product.discountPercentage}%</strong> discount only today!</li>
-            </ul>
-            <div class="card-body">
-              <button id="${product.id}" class="btn btn-info">Buy now</button>
-            </div>
-          </div>
-        `;
-      }
-    }
+  document.querySelector("#postContainer").style.display = "none";
+  document.querySelector("#commentsContainer").style.display = "none";
+  document.querySelector("#errorContainer").style.display = "block";
+}
 
-    function handleCategoryClick(event) {
-      const selectedCategory = categoriesContainer.querySelector(".active");
+function handlePost(event) {
+  event.preventDefault();
+  const postId = getPostInput.value;
 
-      if (event.target.hasAttribute("id")) {
-        const candidateCategory = event.target.getAttribute("id");
+  if (postId >= 1 && postId <= 100) {
+    getPostById(postId)
+      .then(renderPost)
+      .catch((err) => showError(err));
+  } else {
+    showError("Invalid post ID");
+  }
+}
 
-        if (candidateCategory === selectedCategory?.id) {
-          return;
-        }
+function handleComments(event) {
+  event.preventDefault();
+  const postId = getPostInput.value;
 
-        selectedCategory?.classList.remove("active");
-
-        document.querySelector(`#${candidateCategory}`).classList.add("active");
-
-        renderProducts();
-        renderProductItem();
-      }
-    }
-
-    function handleProductClick(event) {
-      const selectedProduct = productsContainer.querySelector(".active");
-
-      if (event.target.hasAttribute("id")) {
-        const candidateProduct = event.target.getAttribute("id");
-
-        if (candidateProduct === selectedProduct?.id) {
-          return;
-        }
-
-        selectedProduct?.classList.remove("active");
-
-        document
-          .querySelector(`[id="${candidateProduct}"]`)
-          .classList.add("active");
-
-        renderProductItem();
-      }
-    }
-
-    function handleBuyProductClick(event) {
-      if (event.target.hasAttribute("id")) {
-        const productId = event.target.getAttribute("id");
-        const product = productsById[productId];
-
-        alert(`You bought ${product.title} from the ${product.brand} brand.
-        Thank you for your purchase 👐`);
-      }
-    }
-  })
-  .catch((error) => console.log("Error fetching data", error));
+  if (postId >= 1 && postId <= 100) {
+    getCommentsByPostId(postId)
+      .then(renderComments)
+      .catch((err) => showError(err));
+  } else {
+    showError("Invalid post ID");
+  }
+}
