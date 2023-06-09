@@ -5,3 +5,10 @@
 .image {
   width: 300px;
 }
+
+.is-value {
+  border-color: #28a745;
+}
+.is-invalue {
+  border-color: red;
+}

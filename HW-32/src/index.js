@@ -143,78 +143,183 @@ fetch("./products.json")
     function handleBuyProductClick(event) {
       if (event.target.hasAttribute("id")) {
         const productId = event.target.getAttribute("id");
-        const product = productsById[productId];
 
         document.querySelector("#orderForm").style.display = "block";
+        document.querySelector("#mainBody").style.display = "none";
+        document.querySelector("#purchaseConfirmation").style.display = "none";
+
+        renderForm(productId);
+        handleSubmitOrder();
       }
     }
 
+    //Form
 
-    const orderForm = document.querySelector("#order-form");
+    const orderForm = document.forms.orderFormElement;
+    const quantityProducts = document.querySelector("#productsQuantity");
 
-    // const buyBtn = document.querySelector("#buy-btn");
-    // buyBtn.addEventListener("click", submitOrder);
+    orderForm.addEventListener("input", handleInputInOrder);
+    quantityProducts.addEventListener("input", handlePriceChanging);
+    orderForm.addEventListener("submit", handleSubmitOrder);
 
-    const orderConfirmation = document.querySelector("#orderConfirmation");
+    function renderForm(productId) {
+      const product = productsById[productId];
+      const formTitle = document.querySelector("#formTitle");
+      const formPrice = document.querySelector("#productPrice");
 
-    function submitOrder(event) {
+      formTitle.innerHTML = `<h2>Registration of your order</h2>
+          ${product.title} from ${product.brand}
+          `;
+      formPrice.innerText = `${product.price} UAH`;
+    }
+
+    function renderPurchaseConfirmation() {
+      const selectedProduct = productsContainer.querySelector(".active");
+      const quantityProducts = document.querySelector("#productsQuantity");
+      const buyerName = document.querySelector("#buyerName");
+      const city = document.querySelector("#city");
+      const postInput = document.querySelector("#postOffice");
+      const priceElement = document.querySelector("#productPrice");
+      const orderDetailsContainer = document.querySelector(
+        "#purchaseConfirmation"
+      );
+
+      if (selectedProduct && productsById[selectedProduct.id]) {
+        const product = productsById[selectedProduct.id];
+
+        orderDetailsContainer.innerHTML = `
+        <div class="card" style="width: 18rem;">
+          <img src="${product.thumbnail}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${product.title}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Buyer name: ${buyerName.value.trim()}</li>
+            <li class="list-group-item">Delivery city: ${city.value.trim()}</li>
+            <li class="list-group-item">Price: ${priceElement.textContent}</li>
+            <li class="list-group-item">Post office: №${postInput.value.trim()}</li>
+            <li class="list-group-item">Quantity of products ordered: ${quantityProducts.value.trim()}</li>
+          </ul>
+          <div class="card-body">
+            <button class="btn btn-info" type="button">Confirmed</button>
+          </div>
+        </div>
+      `;
+      }
+    }
+
+    const isRequired = (value) => (value === "" ? false : true);
+    const isBetween = (length, min, max) =>
+      length < min || length > max ? false : true;
+    const isNumber = (value) => {
+      return /^\d+(\.\d+)?$/.test(value);
+    };
+
+    const showRequirement = (input, message) => {
+      const formField = input.parentElement;
+
+      const requirementText = formField.querySelector("#requirementMessage");
+
+      input.classList.remove("is-valid");
+      input.classList.add("is-invalid");
+
+      requirementText.textContent = message;
+      requirementText.style.color = "red";
+    };
+
+    const showSuccess = (input) => {
+      const formField = input.parentElement;
+      const requirementText = formField.querySelector("#requirementMessage");
+
+      input.classList.remove("is-invalid");
+      input.classList.add("is-valid");
+
+      requirementText.textContent = "";
+    };
+
+    const checkNameInput = () => {
+      let isValid = false;
+      const min = 10;
+      const max = 30;
+      const buyerName = document.querySelector("#buyerName").value.trim();
+
+      if (!isRequired(buyerName)) {
+        showRequirement(buyerName, "This field is required");
+      } else if (!isBetween(buyerName.length, min, max)) {
+        showRequirement(buyerName, "Your text must be at least 10 symbols");
+      } else {
+        isValid = true;
+        showSuccess(buyerName);
+      }
+
+      return isValid;
+    };
+
+    const checkPostInput = () => {
+      let isValid = false;
+      const postInput = document.querySelector("#postOffice").value.trim();
+
+      if (!isRequired(postInput)) {
+        showRequirement(postInput, "This field is required");
+      } else if (!isNumber(postInput)) {
+        showRequirement(postInput, "This field allows only numbers");
+      } else {
+        isValid = true;
+        showSuccess(postInput);
+      }
+      return isValid;
+    };
+
+    function handleInputInOrder(event) {
+      switch (event.target.id) {
+        case "buyerName":
+          checkNameInput();
+          break;
+        case "postOffice":
+          checkPostInput();
+          break;
+      }
+    }
+
+    function handlePriceChanging(event) {
+      const quantityProducts = document.querySelector("#productsQuantity");
+      const priceElement = document.querySelector("#productPrice");
+      const selectedCategory = categoriesContainer.querySelector(".active");
+
+      const quantity = parseInt(quantityProducts.value.trim());
+      const decrementAmount = 10;
+
+      if (selectedCategory && productsByCategory[selectedCategory.id]) {
+        productsByCategory[selectedCategory.id].forEach((product) => {
+          if (!isNaN(quantity) && quantity >= 1) {
+            const totalPrice =
+              product.price * quantity -
+              Math.floor(quantity / decrementAmount) * decrementAmount;
+            priceElement.textContent = `${totalPrice} UAH`;
+          } else {
+            priceElement.textContent = `${product.price} UAH`;
+          }
+        });
+      }
+    }
+
+    function handleSubmitOrder(event) {
       event.preventDefault();
-      if (validateForm()) {
-        orderForm.style.display = "none";
-        orderConfirmation.style.display = "block";
-        displayOrderConfirmation();
+
+      const isNameValid = checkNameInput();
+      const isPostValid = checkPostInput();
+
+      if (!isNameValid || !isPostValid) {
+        return {
+          isNameValid,
+          isPostValid,
+        };
+      } else if (isNameValid && isPostValid) {
+        document.querySelector("#orderForm").style.display = "none";
+        document.querySelector("#purchaseConfirmation").style.display = "block";
+
+        renderPurchaseConfirmation();
       }
     }
-
-    // function validateForm() {
-    //   const name = document.getElementById("name-input").value.trim();
-    //   const city = document.getElementById("city-select").value.trim();
-    //   const postOffice = document
-    //     .getElementById("post-office-input")
-    //     .value.trim();
-    //   const payment = document.querySelector('input[name="payment"]:checked');
-    //   const quantity = document.getElementById("quantity-input").value.trim();
-
-    //   if (!name || !city || !postOffice || !payment || !quantity) {
-    //     const errorDiv = document.createElement("div");
-    //     errorDiv.style.color = "red";
-    //     errorDiv.textContent = "Please fill in all required fields.";
-    //     document.querySelector("form").appendChild(errorDiv);
-    //     return false;
-    //   }
-
-    //   return true;
-    // }
-
-    function displayOrderConfirmation() {
-      const p = document.getElementById("product-name");
-      const productName = p.innerHTML.slice(8, -1);
-
-      const name = document.getElementById("name-input").value.trim();
-      const city = document.getElementById("city-select").value.trim();
-      const postOffice = document
-        .getElementById("post-office-input")
-        .value.trim();
-      const payment = document.querySelector(
-        'input[name="payment"]:checked'
-      ).value;
-      const quantity = document.getElementById("quantity-input").value.trim();
-      const comment = document.getElementById("comment-input").value.trim();
-
-      const productInfoText = `
-        Product: ${productName},
-        Quantity: ${quantity}`;
-      const deliveryInfoText = `
-        Delivery to: ${name},
-        ${city}, Post Office Nr: ${postOffice},
-        Payment method: ${payment},
-        Comment: ${comment}
-        `;
-
-    //   const productInfo = document.getElementById("product-info");
-    //   const deliveryInfo = document.getElementById("delivery-info");
-    //   productInfo.textContent = productInfoText;
-    //   deliveryInfo.textContent = deliveryInfoText;
-    // }
   })
   .catch((error) => console.log("Error fetching data", error));
